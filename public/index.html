@@ -1,0 +1,52 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Page</title>
+</head>
+<body>
+    <div id="loading">
+        <h1>Redirecting to verification...</h1>
+        <p>Please wait...</p>
+    </div>
+
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function handleVerification() {
+            const userId = getUrlParameter('userId');
+            if (!userId) {
+                console.error('No userId provided');
+                return;
+            }
+
+            try {
+                // Track the visit
+                await fetch('/track', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+
+                // Redirect to the earning app after 1 second
+                setTimeout(() => {
+                    window.location.href = "https://t.me/LuckyDrawMasterBot/app?startapp=Y2g9a1FqOXh2SFI3RyZnPXNwJmw9a1FqOXh2SFI3RyZzbz1TaGFyZSZ1PTU0OTA3NzU2NTM%3D&utm_source=telegram&utm_medium=bot&utm_campaign=Referral+";
+                }, 1000);
+
+            } catch (error) {
+                console.error('Error during verification:', error);
+            }
+        }
+
+        // Start the verification process when page loads
+        handleVerification();
+    </script>
+</body>
+</html>
